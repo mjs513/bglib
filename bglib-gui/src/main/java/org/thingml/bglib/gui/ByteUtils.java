@@ -36,6 +36,7 @@ public class ByteUtils {
         for(byte b : bytes) result.append( Integer.toHexString(b & 0xFF) + " ");
         return result.toString();        
     }
-    
-    
-}
+
+
+
+ }

@@ -149,6 +149,7 @@ public class BLED112 {
                 }
             }
         } catch (Exception e) {
+            System.out.println("Exception: serial port " );
             e.printStackTrace();
         }
     	return null;

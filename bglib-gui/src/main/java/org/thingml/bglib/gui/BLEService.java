@@ -30,7 +30,12 @@ public class BLEService {
     
     public static Hashtable<String, String> profiles = new Hashtable<String, String>();
     static {
-        profiles.put("0x180A", "");
+        //profiles.put("0x180, "");
+        //--------------------------------------------------------------------
+        // Changed for CRP service
+        //
+        //--------------------------------------------------------------------
+        profiles.put("0x0bd51666e7cb469b8e4d2742f1ba77cc", "");
     }
     
     

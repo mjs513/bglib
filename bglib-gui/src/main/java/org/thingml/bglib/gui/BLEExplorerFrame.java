@@ -294,6 +294,7 @@ public class BLEExplorerFrame extends javax.swing.JFrame implements BGAPIListene
     private void jButtonBLED112ConnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBLED112ConnActionPerformed
         jButtonBLED112Conn.setEnabled(false);
         jButtonBLED112Disc.setEnabled(false);
+
         port  = BLED112.connectSerial(BLED112.selectSerialPort());
         if (port != null) {
             try {
@@ -354,7 +355,12 @@ public class BLEExplorerFrame extends javax.swing.JFrame implements BGAPIListene
         jButtonConnect.setEnabled(false);
         jButtonDisconnect.setEnabled(true);
         
-        bgapi.send_gap_connect_direct(BDAddr.fromString(d.getAddress()), 1, 0x3C, 0x3C, 0x64,0);
+        //bgapi.send_gap_connect_direct(BDAddr.fromString(d.getAddress()), 1, 0x3C, 0x3C, 0x64,0);
+        //--------------------------------------------------------------------
+        // Changed for CRP service
+        //
+        //--------------------------------------------------------------------
+        bgapi.send_gap_connect_direct(BDAddr.fromString(d.getAddress()), 0, 0x06, 0x10, 0x100,0);
     }//GEN-LAST:event_jButtonConnectActionPerformed
 
     private void jButtonStopDiscoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStopDiscoverActionPerformed
@@ -588,8 +594,19 @@ public class BLEExplorerFrame extends javax.swing.JFrame implements BGAPIListene
         }
 	public void receive_attclient_attribute_value(int connection, int atthandle, int type, byte[] value) {
             System.out.println("Attclient Value att=" + Integer.toHexString(atthandle) + " val = " + bytesToString(value));
+            System.out.println("Attclient Value att=" + Integer.toHexString(atthandle) + " val = " + bytesToStringNS(value));
         }
-	public void receive_attclient_read_multiple_response(int connection, byte[] handles) {}
+
+    public static String bytesToStringNS(byte[] bytes) {
+        StringBuffer result = new StringBuffer();
+        for(byte b : bytes) {
+            int decimal = Integer.parseInt(Integer.toHexString(b & 0xFF), 16);
+            result.append((char) decimal);
+        }
+        return result.toString();
+    }
+
+    public void receive_attclient_read_multiple_response(int connection, byte[] handles) {}
 
 	// Callbacks for class sm (index = 5)
 	public void receive_sm_encrypt_start(int handle, int result) {}
