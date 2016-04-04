@@ -594,17 +594,11 @@ public class BLEExplorerFrame extends javax.swing.JFrame implements BGAPIListene
         }
 	public void receive_attclient_attribute_value(int connection, int atthandle, int type, byte[] value) {
             System.out.println("Attclient Value att=" + Integer.toHexString(atthandle) + " val = " + bytesToString(value));
-            System.out.println("Attclient Value att=" + Integer.toHexString(atthandle) + " val = " + bytesToStringNS(value));
+            // Following line prints to console clear text of what was recived in byte form
+            System.out.println("Attclient Value att=" + Integer.toHexString(atthandle) + " val = " + ByteUtils.bytesToStringNS(value));
         }
 
-    public static String bytesToStringNS(byte[] bytes) {
-        StringBuffer result = new StringBuffer();
-        for(byte b : bytes) {
-            int decimal = Integer.parseInt(Integer.toHexString(b & 0xFF), 16);
-            result.append((char) decimal);
-        }
-        return result.toString();
-    }
+
 
     public void receive_attclient_read_multiple_response(int connection, byte[] handles) {}
 

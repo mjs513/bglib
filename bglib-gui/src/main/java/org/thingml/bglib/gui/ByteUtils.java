@@ -25,8 +25,8 @@ public class ByteUtils {
         String[] bs = bytes.split(" ");
         byte[] result = new byte[bs.length];
         for (int i = 0; i<bs.length; i++) {
-            int b = Integer.parseInt(bs[i], 16);
-            result[i] = (byte)b;
+                int b = Integer.parseInt(bs[i], 10);
+                result[i] = (byte) b;
         }
         return result;
     }
@@ -37,6 +37,36 @@ public class ByteUtils {
         return result.toString();        
     }
 
+    /*
+    Following functions added to support CRP implementation with Arduino
+    */
+    /*
+    public static byte[] bytesFromString2(String bytes) {
+            String[] bs = bytes.split(" ");
+            byte[] result = new byte[bs.length];
+            for (int i = 0; i<bs.length; i++) {
+                if (bs[i].matches("\\d*") ) {
+                    int b = Integer.parseInt(bs[i], 10);
+                    //System.out.println(b);
+                    result[i] = (byte) b;
+                } else {
+                    String b = bs[i];
+                    char cb = b.charAt(0);
+                    //System.out.print("Part 2:  ");  System.out.println(b);
+                    result[i] = (byte) cb;
+                }
 
+            }
+            return result;
+    }
+    */
 
- }
+    public static String bytesToStringNS(byte[] bytes) {
+        StringBuffer result = new StringBuffer();
+        for(byte b : bytes) {
+            int decimal = Integer.parseInt(Integer.toHexString(b & 0xFF), 16);
+            result.append((char) decimal);
+        }
+        return result.toString();
+    }
+}

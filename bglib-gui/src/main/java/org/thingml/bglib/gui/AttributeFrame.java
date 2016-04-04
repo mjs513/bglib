@@ -122,10 +122,15 @@ public class AttributeFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonReadActionPerformed
 
     private void jButtonWriteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonWriteActionPerformed
-        bgapi.send_attclient_attribute_write(connection, Integer.parseInt(jTextFieldHandle.getText(), 16), ByteUtils.bytesFromString(jTextFieldValue.getText()));
+        //bgapi.send_attclient_attribute_write(connection, Integer.parseInt(jTextFieldHandle.getText(), 16), ByteUtils.bytesFromString(jTextFieldValue.getText()));
+        //--------------------------------------------------------------------
+        // Changed for CRP service
+        // See ByteUtils for function description
+        //--------------------------------------------------------------------
+        bgapi.send_attclient_attribute_write(connection, Integer.parseInt(jTextFieldHandle.getText(), 16), (jTextFieldValue.getText()).getBytes());
     }//GEN-LAST:event_jButtonWriteActionPerformed
 
-  
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonRead;
     private javax.swing.JButton jButtonWrite;
